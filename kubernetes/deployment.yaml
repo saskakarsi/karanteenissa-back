@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: karanteenissa-fi-back-depl
+  namespace: prod
+  labels:
+    app: karanteenissa-fi-back-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: karanteenissa-fi-back
+  template:
+    metadata:
+      labels:
+        app: karanteenissa-fi-back
+    spec:
+      containers:
+      - name: karanteenissa-fi-back
+        image: gcr.io/karanteenissa-fi/back:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        command: ["/bin/sh", "-c"]
+        args: ["cd /app && npm run start:prod"]
