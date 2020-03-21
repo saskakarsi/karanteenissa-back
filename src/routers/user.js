@@ -6,7 +6,7 @@ const auth = require('../middleware/auth')
 const { sendWelcomeEmail, sendCancellationEmail } = require('../emails/account.js')
 const router = new express.Router()
 
-router.post('/users', async (req, res) => {
+router.post('/', async (req, res) => {
     const user = new User(req.body)
     // If func being waited rejects exec stops
     try {
@@ -19,7 +19,7 @@ router.post('/users', async (req, res) => {
     }
 })
 
-router.post('/users/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(
             req.body.email, req.body.password
@@ -31,7 +31,7 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
-router.post('/users/logout', auth, async (req, res) => {
+router.post('/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
@@ -43,7 +43,7 @@ router.post('/users/logout', auth, async (req, res) => {
     }
 })
 
-router.post('/users/logoutAll', auth, async (req, res) => {
+router.post('/logoutAll', auth, async (req, res) => {
     try {
         req.user.tokens = []
         await req.user.save()
@@ -53,11 +53,11 @@ router.post('/users/logoutAll', auth, async (req, res) => {
     }
 })
 
-router.get('/users/me', auth, async (req, res) => {
+router.get('/me', auth, async (req, res) => {
     res.send(req.user)
 })
 
-router.patch('/users/me', auth, async (req, res) => {
+router.patch('/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name',
                             'email',
@@ -85,7 +85,7 @@ router.patch('/users/me', auth, async (req, res) => {
     }
 })
 
-router.delete('/users/me', auth, async (req, res) => {
+router.delete('/me', auth, async (req, res) => {
     try {
         await req.user.remove()
         sendCancellationEmail(req.user.email, process.env.SYSTEM_EMAIL, req.user.name)
@@ -94,6 +94,5 @@ router.delete('/users/me', auth, async (req, res) => {
         res.status(500).send()
     }
 })
-
 
 module.exports = router
