@@ -8,9 +8,10 @@ COPY . .
 RUN echo "Build stage"
 RUN npm install
 
-FROM newtmitch/sonar-scanner:latest as sonarqube-stage
-RUN echo "Run sonarqube static code analysis"
-COPY --from=build-stage /app/src/ /root/src
+# Took too long
+# FROM newtmitch/sonar-scanner:latest as sonarqube-stage
+# RUN echo "Run sonarqube static code analysis"
+# COPY --from=build-stage /app/src/ /root/src
 
 FROM node:alpine
 
