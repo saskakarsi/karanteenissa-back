@@ -18,6 +18,21 @@ spec:
       containers:
       - name: karanteenissa-fi-back
         image: gcr.io/karanteenissa-fi/back:latest
+        env:
+          - name: DB_ADDR
+            valueFrom:
+              secretKeyRef:
+                name: secret-karanteenissa-back
+                key: dbaddr
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: secret-karanteenissa-back
+                key: jwtsecret
+          - name: SYSTEM_EMAIL
+            value: karanteenissa2020@gmail.com
+          - name: PORT
+            value: "80"
         imagePullPolicy: Always
         ports:
         - containerPort: 80
