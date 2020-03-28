@@ -50,27 +50,3 @@ const serviceSchema = new mongoose.Schema({
 const Service = mongoose.model('Service', serviceSchema)
 
 module.exports = Service
-
-{
-    id: 0,
-    langs: {
-      fi: {
-        title: '--TITLE--',
-        desc: '--DESCRIPTION--'
-      },
-      en: {
-        title: '--TITLE--',
-        desc: '--DESCRIPTION--'
-      },
-      sv: {
-        title: '--TITLE--',
-        desc: '--DESCRIPTION--'
-      }
-    },
-    link: '--LINK--',
-    img_src: '../img/--IMAGE--.png',
-    locations: [
-      '--LOCATION--'
-    ],
-    category: '--CATEGORY--'
-  }
