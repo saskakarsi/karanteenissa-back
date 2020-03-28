@@ -1,8 +1,11 @@
 const http = require('http')
 const express = require('express')
-require('./db/mongoose')
+const dbConn = require('./db/mongoose')
 const userRouter = require('./routers/user')
 const serviceRouter = require('./routers/service')
+
+dbConn()
+
 const app = express()
 
 app.use(express.json())
