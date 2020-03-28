@@ -28,7 +28,6 @@ const initDB = async () => {
     await User.deleteMany()
     await new User(baseUser).save()
     await new User(otherUser).save()
-    
 } 
 
 module.exports = {
